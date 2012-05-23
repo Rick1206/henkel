@@ -102,15 +102,12 @@
 			
 			arrAmoTxt = [amount1, amount2, amount3, amount4, amount5, amount6, amount7, amount8, amount9, amount10, amount11, amount12, amount13, amount14, amount15];
 			
-			arrAmoRateTxt = [amoRate1, amoRate2, amoRate3, amoRate4, amoRate5, amoRate6, amoRate7, amoRate8, amoRate9, amoRate10
-							,amoRate11,amoRate12,amoRate13,amoRate14,amoRate15];
+			arrAmoRateTxt = [amoRate1, amoRate2, amoRate3, amoRate4, amoRate5, amoRate6, amoRate7, amoRate8, amoRate9, amoRate10, amoRate11, amoRate12, amoRate13, amoRate14, amoRate15];
 			
-			arrLineSpdTxt = [lineSpd1, lineSpd2, lineSpd3, lineSpd4, lineSpd5, lineSpd6, lineSpd7, lineSpd8,
-							 lineSpd9,lineSpd10,lineSpd11,lineSpd12,lineSpd13,lineSpd14];
-			
+			arrLineSpdTxt = [lineSpd1, lineSpd2, lineSpd3, lineSpd4, lineSpd5, lineSpd6, lineSpd7, lineSpd8, lineSpd9, lineSpd10, lineSpd11, lineSpd12, lineSpd13, lineSpd14];
 							 
-			arrLineSpaceTxt = [lineSpace1, lineSpace2, lineSpace3, lineSpace4, lineSpace5,
-								lineSpace6, lineSpace7, lineSpace8, lineSpace9, lineSpace10, lineSpace11, lineSpace12 ,lineSpace13,lineSpace14];
+			arrLineSpaceTxt = [lineSpace1, lineSpace2, lineSpace3, lineSpace4, lineSpace5, lineSpace6, lineSpace7, lineSpace8, lineSpace9, lineSpace10, lineSpace11, lineSpace12 , lineSpace13, lineSpace14];
+			
 								 
 			for (var key:String in arrAmoTxt) {
 				arrAmoTxt[key].addEventListener(Event.CHANGE, onAmoInputHandle);
@@ -155,20 +152,14 @@
 				return;
 			}
 			
-			//numSpace  = (maxNum.getNum() - minNum.getNum()) / Number(cotNum.text);
-			
 			numSpace = (maxNum.getNum() - minNum.getNum()) / numSample;
-			
-			//--- update by rick ---//
-			//cotSpace.text = String(Math.round((maxNum.getNum() - minNum.getNum()) / Number(cotNum.text) / .1) * .1);
-			
 			
 			cotSpace.text = mycls.myRound(numSpace, 0.1);
 			
-			
-			
 			var arrLen:int = arrSpedTxt.length;
+			
 			var res:Number = 0;
+			
 			for (var i:int = 0; i < arrLen; i++ ) {
 				if (numSample - (i + 1) >= 0) {
 					
@@ -177,9 +168,7 @@
 					if (isNaN(res)) return;
 					
 					arrSpedTxt[i].text = mycls.myRound(res, 0.1);
-										 
-					//arrRateTxt[i].text = String(Math.round((res - numMin) / numMin /0.001)*0.001);
-					
+										
 					arrRateTxt[i].text = mycls.myRound((res - numMin) / numMin, 0.001);
 					
 				}else {
@@ -196,32 +185,43 @@
 			var res2:Number = 0;
 			var t:int = 0;
 			for ( i = 0; i < arrLen2; i++ ) {
+				
 				if (arrSpedTxt[i + 1].text != "") {
 					
-					res2 += (Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text));
+					res2 += Number(mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)),0.0001));
 					
-					arrLineSpdTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)),0.01);
+					arrLineSpdTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)), 0.01);
+					
 					t++;
+					
 				}else {
+					
 					arrLineSpdTxt[i].text = "";
 				}
 			}
-			if (t!=0) {
+			
+			if (t != 0) {
+				
 				allLineTxt.text = mycls.myRound(res2 / t , 0.0001);
+				
 			}
 			
 			arrLen2 = arrLineSpaceTxt.length;						
+			
 			t = 0;
+			
 			res2 = 0;
+			
 			for ( i = 0; i < arrLen2; i++ ) {
 				
 				if (arrSpedTxt[i + 1].text != "") {
-					res2 +=  (Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - 
-							  Number(arrLineSpdTxt[i].text) * ( Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text) ) ) / 2;
+					
+					res2 +=  Number(mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - Number(arrLineSpdTxt[i].text) * (Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text))) / 2,0.0001));
 				
-					arrLineSpaceTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - 
-											  Number(arrLineSpdTxt[i].text) * ( Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text) ) ) / 2,0.01);
+					arrLineSpaceTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i + 1].text) - Number(arrLineSpdTxt[i].text) * ( Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text) ) ) / 2, 0.01);
+					
 					t++;
+					
 				}else {
 						arrLineSpaceTxt[i].text  = "";
 				}
