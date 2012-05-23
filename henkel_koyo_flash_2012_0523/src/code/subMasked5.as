@@ -52,8 +52,10 @@
 					
 				}else {
 				
-					arrX = [sped1,sped2,sped3,sped4,sped5,sped6,sped7,sped8,sped9,sped10,sped11,sped12,sped13,sped14,sped15];
-					arrY = [amount,amount1, amount2, amount3, amount4, amount5, amount6, amount7, amount8, amount9,amount10,amount11,amount12,amount13,amount14];
+					arrX = [sped1, sped2, sped3, sped4, sped5, sped6, sped7, sped8, sped9, sped10, sped11, sped12, sped13, sped14, sped15];
+					
+					arrY = [amount, amount1, amount2, amount3, amount4, amount5, amount6, amount7, amount8, amount9, amount10, amount11, amount12, amount13, amount14];
+					
 					
 				}
 			
@@ -106,15 +108,12 @@
 			
 			arrAmoTxt = [amount1, amount2, amount3, amount4, amount5, amount6, amount7, amount8, amount9, amount10, amount11, amount12, amount13, amount14, amount15];
 			
-			arrAmoRateTxt = [amoRate1, amoRate2, amoRate3, amoRate4, amoRate5, amoRate6, amoRate7, amoRate8, amoRate9, amoRate10
-							,amoRate11,amoRate12,amoRate13,amoRate14,amoRate15];
+			arrAmoRateTxt = [amoRate1, amoRate2, amoRate3, amoRate4, amoRate5, amoRate6, amoRate7, amoRate8, amoRate9, amoRate10, amoRate11, amoRate12, amoRate13, amoRate14, amoRate15];
 			
-			arrLineSpdTxt = [lineSpd1, lineSpd2, lineSpd3, lineSpd4, lineSpd5, lineSpd6, lineSpd7, lineSpd8,
-							 lineSpd9,lineSpd10,lineSpd11,lineSpd12,lineSpd13,lineSpd14];
-			
+			arrLineSpdTxt = [lineSpd1, lineSpd2, lineSpd3, lineSpd4, lineSpd5, lineSpd6, lineSpd7, lineSpd8, lineSpd9, lineSpd10, lineSpd11, lineSpd12, lineSpd13, lineSpd14];
 							 
-			arrLineSpaceTxt = [lineSpace1, lineSpace2, lineSpace3, lineSpace4, lineSpace5,
-								lineSpace6, lineSpace7, lineSpace8, lineSpace9, lineSpace10, lineSpace11, lineSpace12 ,lineSpace13,lineSpace14];
+			arrLineSpaceTxt = [lineSpace1, lineSpace2, lineSpace3, lineSpace4, lineSpace5, lineSpace6, lineSpace7, lineSpace8, lineSpace9, lineSpace10, lineSpace11, lineSpace12 , lineSpace13, lineSpace14];
+			
 							 
 			for (var key:String in arrAmoTxt) {
 				arrAmoTxt[key].addEventListener(Event.CHANGE, onAmoInputHandle);
@@ -142,7 +141,6 @@
 			for (var i:int = 0; i < arrLen; i++ ) {
 				res = Number(arrAmoTxt[i].text) - amo;
 				if (res>0) {
-					//arrAmoRateTxt[i].text = String(res / amo);
 					arrAmoRateTxt[i].text =  mycls.myRound(res/amo, 0.01);
 				}else {
 					arrAmoRateTxt[i].text = "";
@@ -196,11 +194,14 @@
 			var t:int = 0;
 			for ( i = 0; i < arrLen2; i++ ) {
 				
-				if (arrSpedTxt[i+1].text != "") {
-					res2 += (Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text));
-					//arrLineSpdTxt[i].text = String((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)));
-					arrLineSpdTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)),0.01);
+				if (arrSpedTxt[i + 1].text != "") {
+					
+					res2 += Number(mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)),0.0001));
+				
+					arrLineSpdTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)), 0.01);
+					
 					t++;
+					
 				}else {
 					arrLineSpdTxt[i].text = "";
 				}
@@ -218,12 +219,9 @@
 			for ( i = 0; i < arrLen2; i++ ) {
 				
 				if (arrSpedTxt[i + 1].text != "") {
-					res2 +=  (Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - 
-							Number(arrLineSpdTxt[i].text) * ( Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text) ) ) / 2;
-				
-					//arrLineSpaceTxt[i].text = String((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - 
-													//Number(arrLineSpdTxt[i].text) * ( Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text) ) ) / 2);
-													
+									
+					res2 +=  Number(mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - Number(arrLineSpdTxt[i].text) * (Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text))) / 2,0.0001));
+								
 					arrLineSpaceTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - 
 											  Number(arrLineSpdTxt[i].text) * ( Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text) ) ) / 2,0.01);
 					t++;
