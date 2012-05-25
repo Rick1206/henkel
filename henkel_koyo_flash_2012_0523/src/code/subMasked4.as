@@ -144,11 +144,8 @@
 		{
 			numSample = Number(cotNum.text);
 			
-			if (numSample > 15 || isNaN(numSample) ) {
-				cotNum.text = "请输入正确数值!";
-				setTimeout(function() {
-					cotNum.text = "";
-					},1000);
+			if (numSample > 15 || isNaN(numSample) ) {cotNum.text = "请输入正确数值!";
+				setTimeout(function() {cotNum.text = "";},1000);
 				return;
 			}
 			
@@ -159,6 +156,7 @@
 			var arrLen:int = arrSpedTxt.length;
 			
 			var res:Number = 0;
+			var resArr:Array = [];
 			
 			for (var i:int = 0; i < arrLen; i++ ) {
 				if (numSample - (i + 1) >= 0) {
@@ -171,6 +169,9 @@
 										
 					arrRateTxt[i].text = mycls.myRound((res - numMin) / numMin, 0.001);
 					
+					
+					resArr.push((res - numMin) / numMin);
+					
 				}else {
 					
 					arrSpedTxt[i].text = "";
@@ -181,16 +182,58 @@
 				
 			}
 			
+			var amo:Number = Number(amount.text);
+			arrLen = arrAmoRateTxt.length;
+			res = 0;
+			
+			var resArr2:Array = [];
+			
+			for (i = 0; i < arrLen; i++ ) {
+				res = Number(arrAmoTxt[i].text) - amo;
+				if (isNaN(res)) return;
+				resArr2.push(res / amo);
+			}
+			
+			
+			
 			var arrLen2:int = arrLineSpdTxt.length;
 			var res2:Number = 0;
 			var t:int = 0;
+			var curN1:Number;
+			var curN2:Number;
+			var resArr3:Array = [];
+			
 			for ( i = 0; i < arrLen2; i++ ) {
 				
 				if (arrSpedTxt[i + 1].text != "") {
+					//curN1 = (Number(arrAmoRateTxt[i + 1].text)*10000 - Number(arrAmoRateTxt[0].text)*10000) * .0001
+					//curN2 = (Number(arrRateTxt[i + 1].text) * 10000 - Number(arrRateTxt[0].text) * 10000) * .0001;
 					
-					res2 += Number(mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)),0.0001));
+					//res2 += Number(mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)),0.0001));
+					//trace(Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text));
+					//trace((Number(arrRateTxt[i + 1].text)*10000 - Number(arrRateTxt[0].text)*10000)*.0001);
+					//trace(Number(mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)),0.0001)));
+					//arrLineSpdTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)), 0.01);
+					//trace(curN1);
+					//trace(resArr2[i + 1] - resArr2[0]);
+					//trace(curN2);
+					//trace(resArr[i + 1] - resArr[0]);
 					
-					arrLineSpdTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[i + 1].text) - Number(arrAmoRateTxt[0].text)) / ( Number(arrRateTxt[i + 1].text) - Number(arrRateTxt[0].text)), 0.01);
+					
+					curN1 = resArr2[i + 1] - resArr2[0];
+					curN2 = resArr[i + 1] - resArr[0];
+					
+					res2 += Number(mycls.myRound(curN1 / curN2, 0.0001));
+					
+					if (isNaN(res2)) return;
+					
+					//trace(curN1 / curN2);
+					//trace((resArr2[i + 1] - resArr2[0]) / (resArr[i + 1] - resArr[0]));
+					
+					arrLineSpdTxt[i].text = Number(mycls.myRound(curN1 / curN2, 0.0001));
+					
+					resArr3.push(curN1 / curN2);
+					
 					
 					t++;
 					
@@ -216,9 +259,15 @@
 				
 				if (arrSpedTxt[i + 1].text != "") {
 					
-					res2 +=  Number(mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - Number(arrLineSpdTxt[i].text) * (Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text))) / 2,0.0001));
+					//res2 +=  Number(mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i+1].text) - Number(arrLineSpdTxt[i].text) * (Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text))) / 2,0.0001));
 				
 					arrLineSpaceTxt[i].text = mycls.myRound((Number(arrAmoRateTxt[0].text) + Number(arrAmoRateTxt[i + 1].text) - Number(arrLineSpdTxt[i].text) * ( Number( arrRateTxt[0].text) + Number(arrRateTxt[i + 1].text) ) ) / 2, 0.01);
+				
+					//trace((resArr2[0] + resArr2[i + 1] - (resArr3[i] * (resArr[0] + resArr[i + 1]))) / 2);
+					
+					res2 += (resArr2[0] + resArr2[i + 1] - (resArr3[i] * (resArr[0] + resArr[i + 1]))) / 2;
+					
+					arrLineSpaceTxt[i].text  = mycls.myRound((resArr2[0] + resArr2[i + 1] - (resArr3[i] * (resArr[0] + resArr[i + 1]))) / 2 , 0.0001);
 					
 					t++;
 					
@@ -227,8 +276,10 @@
 				}
 			}
 			
-			if (t!=0) {
+			if (t != 0) {
+				
 				allLineTxt2.text = mycls.myRound(res2 / t, 0.0001);
+				
 			}
 			
 			

@@ -21,7 +21,6 @@
 		}
 		private function init(e:Event=null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-
 			var myScroll:ScrollBar = new ScrollBar(Masked,Mask,slider,scroll_bg);
 				myScroll.direction = "L";
 				myScroll.tween = 5;
