@@ -32,10 +32,9 @@
 		
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			 
-			 stage.scaleMode=StageScaleMode.NO_SCALE;
+			stage.scaleMode=StageScaleMode.NO_SCALE;
 			 
-			 stage.displayState="fullScreen";
-			 
+			stage.displayState="fullScreen";
 			 
 			TweenPlugin.activate([TransformAroundCenterPlugin]);
 			
@@ -46,7 +45,7 @@
 			phoArray = [pho1, pho2, pho3, pho4, pho5];
 			
 			for (var key:String in phoArray) {
-				TweenMax.from(phoArray[key], .3, { autoAlpha:0, transformAroundCenter: { scale:0.8, rotationY:"45", x:"60" }, delay:int(key) * 0.3 } );	
+				TweenMax.from(phoArray[key], .3, {autoAlpha:0, transformAroundCenter: { scale:0.8, rotationY:"45", x:"60" },delay:int(key) * 0.3});	
 				TweenMax.to(phoArray[key].subImg, .3, { colorMatrixFilter: { saturation:0.1, brightness:0.8 }, blurFilter: { blurX:10, blurY:10 }, delay:int(key) * 0.3,onComplete:function() {}});
 			}
 			
@@ -62,19 +61,20 @@
 				phoArray[key].addEventListener(MouseEvent.CLICK, onClickHandle);
 				phoArray[key].addEventListener(MouseEvent.ROLL_OVER, onOverHandle);
 				phoArray[key].addEventListener(MouseEvent.ROLL_OVER, mouseStr);
-				phoArray[key].addEventListener(MouseEvent.ROLL_OUT,mouseStr);
+				phoArray[key].addEventListener(MouseEvent.ROLL_OUT, mouseStr);
 			}
 		}
 		private function onClickHandle(e:MouseEvent):void 
 		{
 			var strName:String = e.currentTarget.name;
+			
 			Mouse.cursor = MouseCursor.ARROW;
+			
 			for (var key:String in phoArray) {
-				
+				phoArray[key].removeEventListener(MouseEvent.CLICK, onClickHandle);
 				phoArray[key].removeEventListener(MouseEvent.ROLL_OVER, onOverHandle);
 				phoArray[key].removeEventListener(MouseEvent.ROLL_OUT, mouseStr);
 				phoArray[key].removeEventListener(MouseEvent.ROLL_OVER, mouseStr);
-				
 				TweenMax.to(phoArray[key], .3, { autoAlpha:0, transformAroundCenter: { scale:0.8, rotationY:"45", x:"60" }, delay:int(key) * 0.3 } );	
 			}
 			TweenMax.to(mainTitle, .5, { autoAlpha:0, y:"80" , delay:1.8 } );
@@ -101,10 +101,10 @@
 					break;	
 				}
 
-					for ( key in phoArray) {
-						removeChild(phoArray[key]);
+				for ( key in phoArray) {
+					removeChild(phoArray[key]);
 						phoArray[key] = null;
-					}
+				}
 				
 				}});
 		}
