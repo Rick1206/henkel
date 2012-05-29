@@ -95,7 +95,8 @@
 				TweenLite.to(mc, 1, { x:p12.x, y:p12.y } ),
 				TweenLite.to(mc, 1, { x:p13.x, y:p13.y } ),
 				TweenLite.to(mc, 1, { x:p14.x, y:p14.y } ),
-				TweenLite.to(mc, 1, { x:p15.x, y:p15.y } )
+				TweenLite.to(mc, 1, { x:p15.x, y:p15.y } ),
+				TweenLite.to(mc, 1, { x:p16.x, y:p16.y } )
 				], 0, TweenAlign.SEQUENCE);
 			
 		
@@ -111,7 +112,7 @@
 			line.graphics.clear();
 	
 			//start new line at first point
-			line.graphics.lineStyle(5, 0x999999, .5);
+			line.graphics.lineStyle(5, 0x990000, .5);
 			line.graphics.moveTo(p1.x, p1.y);
 	
 			tl.restart();
