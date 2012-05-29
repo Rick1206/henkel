@@ -27,8 +27,8 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			arrTxt = [txt1, txt2, txt3, txt4, txt5, txt6];
-			arrTxtX = [txtX1, txtX2, txtX3, txtX4, txtX5, txtX6,txtX7,txtX8,txtX9,txtX10,txtX11,txtX12,txtX13,txtX14,txtX15];
-			arrPos = [p1, p2, p3, p4, p5, p6,p7,p8,p9,p10,p11,p12,p13,p14,p15];
+			arrTxtX = [txtX1, txtX2, txtX3, txtX4, txtX5, txtX6,txtX7,txtX8,txtX9,txtX10,txtX11,txtX12,txtX13,txtX14,txtX15,txtX16];
+			arrPos = [p1, p2, p3, p4, p5, p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16];
 			
 			line = new Shape();
 			addChild(line);
@@ -48,7 +48,7 @@
 			for (var key:String in arr) {
 				arrNum.push(Number(arr[key].text));
 				arrNum2.push(Number(arr[key].text));
-				trace(Number(arr[key].text));
+				//trace(Number(arr[key].text));
 			}
 			
 				
@@ -59,15 +59,19 @@
 			
 		
 			arrNum2.sort(Array.NUMERIC);
-			var len:int = arrNum2.length;
-			var max:Number = arrNum2[arrNum2.length - 1];
-			var min:Number = arrNum2[0];
-			var dis:Number = (max - min) / 4 ;
 			
+			var len:int = arrNum2.length;
+			
+			var max:Number = arrNum2[arrNum2.length - 1];
+			trace(max);
+			var min:Number = arrNum2[0];
+			trace(min);
+			var dis:Number = (max *10 - min*10) * 0.1 / 4 ;
+			trace(dis);
 
 			
 			for (key in arrTxt) {
-				arrTxt[key].text = String(Number(key)*dis);
+				arrTxt[key].text = String(Number(key)*dis+min);
 			}
 			
 			for (key in arrNum) {	

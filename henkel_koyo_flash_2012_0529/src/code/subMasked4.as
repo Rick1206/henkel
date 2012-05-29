@@ -50,8 +50,8 @@
 					
 				}else {
 					
-					arrX = [sped1, sped2, sped3, sped4, sped5, sped6, sped7, sped8, sped9, sped10, sped11, sped12, sped13, sped14, sped15];
-					arrY = [amount, amount1, amount2, amount3, amount4, amount5, amount6, amount7, amount8, amount9, amount10, amount11, amount12, amount13, amount14];
+					arrX = [sped1, sped2, sped3, sped4, sped5, sped6, sped7, sped8, sped9, sped10, sped11, sped12, sped13, sped14, sped15,sped16];
+					arrY = [amount, amount1, amount2, amount3, amount4, amount5, amount6, amount7, amount8, amount9, amount10, amount11, amount12, amount13, amount14,amount15];
 				
 					}
 			
